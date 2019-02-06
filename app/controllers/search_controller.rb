@@ -9,6 +9,10 @@ class SearchController < ApplicationController
 
     response = @conn.get("/api/alt-fuel-stations/v1/nearest.json?api_key=#{ENV["NREL_API_KEY"]}&location=#{params[:zip_code]}&radius=6.0&fuel_type=ELEC&fuel_type=LPG&limit=10")
 
-    @station = JSON.parse(response.body, symbolize_names: true)[:fuel_stations]
+    results = JSON.parse(response.body, symbolize_names: true)[:fuel_stations]
+
+    @stations = results.map do |result|
+      Station.new(result)
+    end
   end
 end
