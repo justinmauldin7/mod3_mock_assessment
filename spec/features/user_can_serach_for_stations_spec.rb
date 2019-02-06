@@ -11,7 +11,8 @@ describe 'As a user on the root path' do
 
     expect(current_path).to eq('/search')
     #10 closest stations within 6 miles sorted by distance
-    expect(station.count).to eq(10)
+save_and_open_page
+    expect(page).to have_content("Station Count: 10")
     #should be limited to Electric and Propane
     within(first(".station")) do
       #I should see Name, Address, Fuel Types,
